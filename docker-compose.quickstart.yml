@@ -18,5 +18,6 @@ services:
       PAPERCLIP_DEPLOYMENT_EXPOSURE: "${PAPERCLIP_DEPLOYMENT_EXPOSURE:-public}"
       PAPERCLIP_PUBLIC_URL: "${PAPERCLIP_PUBLIC_URL:-http://localhost:3100}"
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:-BETTER_AUTH_SECRET must be set}"
+    user: "0:0" 
     volumes:
       - "${PAPERCLIP_DATA_DIR:-./data/docker-paperclip}:/paperclip"
