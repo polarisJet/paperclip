@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      
     environment:
       HOST: "0.0.0.0"
       PAPERCLIP_HOME: "/paperclip"
