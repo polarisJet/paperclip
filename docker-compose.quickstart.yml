@@ -1,13 +1,14 @@
 services:
   paperclip:
-    user: "0:0"  
+    user: "0:0"
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: ["/bin/sh", "-c", "chown -R node:node /paperclip && exec gosu node \"$$@\"", "--"]
+    entrypoint: []
     command: ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]
 
     environment:
+      HOME: "/paperclip"
       HOST: "0.0.0.0"
       PAPERCLIP_HOME: "/paperclip"
       OPENAI_BASE_URL: "${OPENAI_BASE_URL:-https://openrouter.ai/api/v1}"
@@ -20,10 +21,9 @@ services:
       PAPERCLIP_DEPLOYMENT_EXPOSURE: "${PAPERCLIP_DEPLOYMENT_EXPOSURE:-public}"
       PAPERCLIP_PUBLIC_URL: "${PAPERCLIP_PUBLIC_URL:-http://localhost:3100}"
       BETTER_AUTH_SECRET: "${BETTER_AUTH_SECRET:-BETTER_AUTH_SECRET must be set}"
-      DATABASE_URL: "postgresql://paperclip:${SERVICE_PASSWORD_POSTGRES}@db:5432/paperclip"      
+      DATABASE_URL: "postgresql://paperclip:${SERVICE_PASSWORD_POSTGRES}@db:5432/paperclip"
     volumes:
       - "${PAPERCLIP_DATA_DIR:-./data/docker-paperclip}:/paperclip"
-      - paperclip_data:/paperclip/instances
     depends_on:
       db:
         condition: service_healthy
@@ -43,5 +43,4 @@ services:
       retries: 5
 
 volumes:
-  paperclip_data:
-  pgdata:      
+  pgdata:
