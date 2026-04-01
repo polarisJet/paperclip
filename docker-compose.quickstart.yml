@@ -1,10 +1,12 @@
 services:
   paperclip:
-    user: "1000:1000"  
+    user: "0:0"  
     build:
       context: .
       dockerfile: Dockerfile
-      
+    entrypoint: ["/bin/sh", "-c", "chown -R node:node /paperclip && exec gosu node \"$$@\"", "--"]
+    command: ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]
+
     environment:
       HOST: "0.0.0.0"
       PAPERCLIP_HOME: "/paperclip"
