@@ -4,10 +4,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    entrypoint: []
-    command: ["node", "--import", "./server/node_modules/tsx/dist/loader.mjs", "server/dist/index.js"]
 
     environment:
+      USER_UID: "0"
+      USER_GID: "0"
       HOME: "/paperclip"
       HOST: "0.0.0.0"
       PAPERCLIP_HOME: "/paperclip"
